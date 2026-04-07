@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raghav's Portfolio</title>
+<link rel="icon" type="image/jpeg" href="images/myself-raghav.jpeg">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* DESIGN SYSTEM */
+:root{
+--primary:#6366f1;
+--accent:#ec4899;
+--yellow:#eab308;
+--bg:linear-gradient(120deg,#eef2ff,#fdf2f8,#f8fafc);
+--text:#0f172a;
+--glass:rgba(255,255,255,0.7);
+--radius:16px;
+}
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+overflow-x:hidden; /* prevents breaking */
+}
+
+/* NAVBAR */
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px 8%;
+background:rgba(255,255,255,0.85);
+backdrop-filter:blur(10px);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-weight:700;
+font-size:20px;
+}
+
+nav ul{
+display:flex;
+gap:24px;
+list-style:none;
+}
+
+nav a{
+text-decoration:none;
+color:#334155;
+font-weight:500;
+}
+
+/* MOBILE NAV */
+.menu-toggle{
+display:none;
+font-size:24px;
+cursor:pointer;
+}
+
+@media(max-width:768px){
+nav ul{
+display:none;
+flex-direction:column;
+background:white;
+position:absolute;
+top:70px;
+right:8%;
+padding:20px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+nav ul.active{
+display:flex;
+}
+
+.menu-toggle{
+display:block;
+}
+}
+
+/* HERO */
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:80px 8%;
+flex-wrap:wrap;
+gap:40px;
+}
+
+/* TEXT */
+.hero-text{
+max-width:520px;
+}
+
+.hero-text h2{
+font-size:42px;
+background:linear-gradient(90deg,#0f172a,#6366f1,#ec4899);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.hero-text p{
+margin:20px 0;
+line-height:1.6;
+}
+
+/* PROFILE IMAGE (FIXED + GLOW) */
+.hero-img{
+width:260px;
+height:260px;
+border-radius:50%;
+padding:6px;
+background:linear-gradient(135deg,#ffffff,#e2e8f0);
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+position:relative;
+overflow:hidden;
+transition:0.4s;
+}
+
+/* glowing border */
+.hero-img::before{
+content:'';
+position:absolute;
+inset:0;
+border-radius:50%;
+padding:2px;
+background:linear-gradient(135deg,#ffffff,#6366f1,#ec4899);
+-webkit-mask:
+linear-gradient(#fff 0 0) content-box,
+linear-gradient(#fff 0 0);
+-webkit-mask-composite:xor;
+mask-composite:exclude;
+opacity:0.8;
+}
+
+/* image fix */
+.hero-img img{
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius:50%;
+}
+
+/* hover */
+.hero-img:hover{
+transform:translateY(-8px) scale(1.04);
+box-shadow:0 20px 50px rgba(99,102,241,0.3);
+}
+
+/* SECTION */
+section{
+padding:70px 8%;
+}
+
+.title{
+font-size:26px;
+margin-bottom:30px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:30px;
+}
+
+/* CARD */
+.card{
+background:var(--glass);
+backdrop-filter:blur(10px);
+border-radius:var(--radius);
+overflow:hidden;
+transition:0.3s;
+}
+
+.card img{
+width:100%;
+height:220px;        /* increase height */
+object-fit:contain;  /* prevents cropping */
+background:#f8fafc;  /* clean background for spacing */
+padding:10px;        /* breathing space */
+}
+
+.card-content{
+padding:18px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 12px 30px rgba(99,102,241,0.15);
+}
+
+/* BUTTON */
+.btn{
+padding:10px 20px;
+background:linear-gradient(135deg,var(--primary),var(--accent));
+color:white;
+border-radius:8px;
+text-decoration:none;
+font-size:14px;
+width:max-content;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+/* SKILLS */
+.skills{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:30px;
+justify-items:center;
+}
+
+.circle{
+width:120px;
+height:120px;
+border-radius:50%;
+background:conic-gradient(var(--yellow) var(--value), #e5e7eb 0);
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.circle span{
+background:white;
+width:85px;
+height:85px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+font-weight:600;
+text-align:center;
+}
+
+/* CONTACT */
+.contact{
+display:flex;
+gap:18px;
+}
+
+.contact img{
+width:26px;
+opacity:0.8;
+transition:0.3s;
+cursor:pointer;
+}
+
+.contact img:hover{
+opacity:1;
+transform:translateY(-3px);
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:20px;
+background:#0f172a;
+color:white;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.hero{
+flex-direction:column;
+text-align:center;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.skills{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+/* ADVANCED FOOTER */
+.footer-advanced{
+background:#0f172a;
+color:#cbd5f5;
+padding:50px 8% 20px;
+margin-top:40px;
+}
+
+.footer-container{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:40px;
+}
+
+.footer-brand h3{
+color:white;
+margin-bottom:10px;
+}
+
+.footer-brand p{
+font-size:14px;
+line-height:1.6;
+}
+
+.footer-links h4,
+.footer-contact h4{
+color:white;
+margin-bottom:12px;
+}
+
+.footer-links ul{
+list-style:none;
+}
+
+.footer-links li{
+margin-bottom:8px;
+}
+
+.footer-links a{
+text-decoration:none;
+color:#cbd5f5;
+transition:0.3s;
+}
+
+.footer-links a:hover{
+color:white;
+transform:translateX(4px);
+}
+
+.footer-contact p{
+font-size:14px;
+margin-bottom:6px;
+}
+
+.footer-contact a{
+color:#cbd5f5;
+text-decoration:none;
+}
+
+.footer-contact a:hover{
+color:white;
+}
+
+.footer-icons{
+margin-top:15px;
+display:flex;
+justify-content:center;   /* center horizontally */
+align-items:center;       /* align vertically */
+gap:20px;                 /* equal spacing */
+}
+
+.footer-icons a{
+display:flex;
+align-items:center;
+justify-content:center;
+width:40px;
+height:40px;
+border-radius:50%;
+background:rgba(255,255,255,0.05); /* subtle uniform base */
+transition:0.3s;
+}
+
+.footer-icons img{
+width:20px;
+height:20px;
+object-fit:contain;
+}
+
+.footer-icons a:hover{
+transform:translateY(-4px) scale(1.1);
+background:rgba(255,255,255,0.12);
+}
+
+
+.footer-brand{
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.footer-logo{
+max-width:220px;
+width:100%;
+height:auto;
+object-fit:contain;
+filter:drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+transition:0.3s;
+}
+
+.footer-logo:hover{
+transform:scale(1.05);
+}
+
+
+/* BOTTOM */
+.footer-bottom{
+margin-top:30px;
+padding-top:15px;
+border-top:1px solid rgba(255,255,255,0.1);
+text-align:center;
+font-size:13px;
+color:#94a3b8;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+.footer-container{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+.footer-icons{
+justify-content:center;
+}
+}
+
+#about .card{
+background:var(--glass);
+backdrop-filter:blur(10px);
+border-radius:var(--radius);
+transition:0.3s;
+}
+
+#about .card:hover{
+transform:translateY(-4px);
+box-shadow:0 10px 25px rgba(99,102,241,0.15);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="logo">Raghav Tripathi</div>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+<ul id="menu">
+<li><a href="#">About</a></li>
+<li><a href="#skills">Core</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#certifications">Certifications</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+<div class="hero-text">
+<h2>Data Analyst</h2>
+<p>Delivering actionable insights through structured data analysis and visualization.</p>
+<a href="assets/raghav-cv.pdf" class="btn">Resume</a>
+</div>
+
+<div class="hero-img">
+<img src="images/myself-raghav.jpeg" alt="profile">
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+<h2 class="title">About</h2>
+
+<div class="card" style="padding:25px; line-height:1.7;">
+
+<p>
+Strategic and execution-focused BCA final-year professional specializing in data analytics and engineering workflows. Demonstrates strong analytical capability through real-world project delivery, transforming raw datasets into structured, insight-driven outcomes.
+</p>
+
+<br>
+
+<ul style="padding-left:18px; display:flex; flex-direction:column; gap:8px;">
+
+<li>Hands-on experience in Advanced Excel, Python, SQL, and PowerPoint for data-driven reporting</li>
+
+<li>Proficient in data cleaning, transformation, and optimization across multiple project environments</li>
+
+<li>Strong problem-solving orientation with a focus on efficiency, scalability, and accuracy</li>
+
+<li>Working knowledge of Web Development and Artificial Intelligence concepts</li>
+
+<li>Executed deployable-level projects with end-to-end ownership and implementation</li>
+
+<li>Experienced freelance Graphic Designer and Video Editor, integrating creativity with analytics</li>
+
+<li>Capable of translating complex data into actionable insights for decision-making</li>
+
+</ul>
+
+</div>
+</section>
+
+
+<!-- CORE -->
+<section id="skills">
+<h2 class="title">Core Competence</h2>
+
+<div class="skills">
+
+<div class="circle" style="--value:85%"><span>Advance Excel</span></div>
+<div class="circle" style="--value:80%"><span>Python</span></div>
+<div class="circle" style="--value:78%"><span>SQL</span></div>
+<div class="circle" style="--value:75%"><span>Web Devlopment</span></div>
+
+<div class="circle" style="--value:82%"><span>Data Engineering</span></div>
+<div class="circle" style="--value:88%"><span>Power BI</span></div>
+<div class="circle" style="--value:83%"><span>Data Optimisation</span></div>
+<div class="circle" style="--value:80%"><span>Powerpoint Presentation</span></div>
+
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+<h2 class="title">Projects</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="images/imp0007.png">
+<div class="card-content">
+<h3>DATA CLEANING & VISUALIZATION</h3>
+<p>Optimizing, Engineering & Exporting</p>
+<a href="assets/data-analyst-dashboard.pdf" class="btn">View Project</a>
+</div>
+</div>
+
+<div class="card">
+<img src="images/bytecoders-logo.jpeg">
+<div class="card-content">
+<h3>BYTE CODERS</h3>
+<p>Platform to conduct multiple clients in simple way.</p>
+<a href="https://careerbyte.co.in/bytecoders.htm" class="btn">View Project</a>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+<h2 class="title">Certifications</h2>
+
+<div class="grid">
+
+<div class="card"><img src="images/data-science.png"><div class="card-content"><h3>Data Science @SYNTECXHUB</h3></div></div>
+<div class="card"><img src="images/ccc.png"><div class="card-content"><h3>Course on Computer Concepts @NIELIT</h3></div></div>
+<div class="card"><img src="images/eep.png"><div class="card-content"><h3>Employability Enhancement Programme @INFOSYS CENTUM</h3></div></div>
+<div class="card"><img src="images/ui-ux.jpeg"><div class="card-content"><h3>UI/UX @SYNTECXHUB</h3></div></div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2 class="title">Contact</h2>
+
+<div class="contact">
+<a href="mailto:about.raghavv@gmail.com"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png"></a>
+<a href="https://www.linkedin.com/in/raghav-rp-tripathi/"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png"></a>
+<a href="https://github.com/raghav-rp-tripathi"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></a>
+<a href="https://www.instagram.com/career_byte_institute/"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"></a>
+</div>
+<div style="margin-top:25px;">
+<a href="form.html" class="btn">✨ Connect With Me</a>
+</div>
+
+</section>
+
+<footer class="footer-advanced">
+
+<div class="footer-container">
+
+<!-- LEFT -->
+<img src="images/myselfsomeone.jpeg" alt="Raghav Branding" class="footer-logo">
+
+<!-- CENTER -->
+<div class="footer-links">
+<h4>Quick Links</h4>
+<ul>
+<li><a href="#">About</a></li>
+<li><a href="#skills">Core</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#certifications">Certifications</a></li>
+</ul>
+</div>
+
+<!-- RIGHT -->
+<div class="footer-contact">
+<h4>Connect</h4>
+<div class="footer-icons">
+<a href="mailto:about.raghavv@gmail.com"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png"></a>
+<a href="https://www.linkedin.com/in/raghav-rp-tripathi/"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png"></a>
+<a href="https://github.com/raghav-rp-tripathi"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></a>
+<a href="https://www.instagram.com/career_byte_institute/"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"></a>
+</div>
+
+</div>
+
+</div>
+
+<!-- BOTTOM -->
+<div class="footer-bottom">
+<p>© 2026 Raghav Tripathi: Engineered with Precision</p>
+</div>
+
+</footer>
+
+<script>
+function toggleMenu(){
+document.getElementById("menu").classList.toggle("active");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Form</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Inter',sans-serif;
+background:linear-gradient(135deg,#eef2ff,#fdf2f8);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.form-container{
+background:white;
+padding:30px;
+border-radius:16px;
+width:350px;
+box-shadow:0 15px 40px rgba(0,0,0,0.15);
+animation:fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+label{
+font-size:14px;
+font-weight:500;
+display:block;
+margin-top:10px;
+}
+
+input, select{
+width:100%;
+padding:10px;
+margin-top:5px;
+border-radius:8px;
+border:1px solid #ccc;
+outline:none;
+}
+
+input:focus, select:focus{
+border-color:#6366f1;
+}
+
+.btn{
+margin-top:20px;
+width:100%;
+padding:12px;
+border:none;
+background:linear-gradient(135deg,#6366f1,#ec4899);
+color:white;
+border-radius:10px;
+font-size:14px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+.success{
+text-align:center;
+color:green;
+margin-top:10px;
+display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="form-container">
+
+<h2>📝 Register Here</h2>
+
+<form id="regForm">
+
+<label>👤 Full Name *</label>
+<input type="text" id="name" required>
+
+<label>🎂 Age *</label>
+<input type="number" id="age" required>
+
+<label>⚧ Gender *</label>
+<select id="gender" required>
+<option value="">Select</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+
+<label>📧 Email *</label>
+<input type="email" id="email" required>
+
+<label>📱 Phone Number *</label>
+<input type="tel" id="phone" required pattern="[0-9]{10}">
+
+<label>📅 Date of Birth *</label>
+<input type="date" id="dob" required>
+
+<button type="submit" class="btn">🚀 Submit</button>
+
+<div class="success" id="successMsg">
+✅ Successfully Registered!
+</div>
+
+</form>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+
+(function(){
+emailjs.init("YOUR_PUBLIC_KEY"); // from EmailJS
+})();
+
+document.getElementById("regForm").addEventListener("submit", function(e){
+e.preventDefault();
+
+let name = document.getElementById("name").value.trim();
+let age = document.getElementById("age").value;
+let gender = document.getElementById("gender").value;
+let email = document.getElementById("email").value;
+let phone = document.getElementById("phone").value;
+let dob = document.getElementById("dob").value;
+
+// Validation
+if(name.length < 3){
+alert("Enter valid name");
+return;
+}
+
+if(age < 10 || age > 100){
+alert("Enter valid age");
+return;
+}
+
+if(phone.length !== 10){
+alert("Phone must be 10 digits");
+return;
+}
+
+// Send Email
+emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{
+name: name,
+age: age,
+gender: gender,
+email: email,
+phone: phone,
+dob: dob
+})
+.then(function(response){
+
+// POPUP
+alert("🎉 Thank You! Your details have been submitted successfully.");
+
+// RESET
+document.getElementById("regForm").reset();
+
+// REDIRECT
+setTimeout(()=>{
+window.location.href = "index.html";
+},1500);
+
+}, function(error){
+alert("❌ Failed to send. Try again.");
+});
+
+});
+
+</script>
+
+</body>
+</html>
