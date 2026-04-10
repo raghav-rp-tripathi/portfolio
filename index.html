@@ -569,6 +569,61 @@ align-self:center;   /* vertical alignment inside grid */
 justify-self:center; /* horizontal center between columns */
 }
 
+#progress .card{
+min-height:220px;
+display:flex;
+align-items:center;
+}
+/* iframe container control */
+.iframe-card{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+/* iframe sizing */
+.project-frame{
+width:90%;
+max-width:420px;
+height:220px;              /* same visual weight as your images */
+border:none;
+border-radius:12px;
+margin-top:15px;
+
+/* optional polish */
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+/* hover interaction */
+.project-frame:hover{
+transform:scale(1.02);
+}
+.iframe-card{
+display:flex;
+flex-direction:column;
+align-items:center;
+padding-top:15px;
+}
+
+.project-frame{
+width:100%;
+max-width:360px;
+height:200px;
+border:none;
+border-radius:12px;
+margin-bottom:10px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+#progress .grid{
+display:flex;
+justify-content:center;   /* centers horizontally */
+}
+
+#progress .card{
+max-width:500px;          /* controls card width */
+width:100%;
+}
 </style>
 </head>
 
@@ -682,6 +737,38 @@ Strategic and execution-focused BCA final-year professional specializing in data
 
 </div>
 </section>
+
+<!-- PROJECTS IN PROGRESS -->
+<section id="progress">
+<h2 class="title">Projects in Progress</h2>
+
+<div class="grid">
+
+<div class="card iframe-card">
+
+<iframe 
+src="https://online-examination-system-lovat-theta.vercel.app/" 
+class="project-frame">
+</iframe>
+
+<div class="card-content">
+<h3>ONLINE EXAMINATION SYSTEM</h3>
+
+<p>
+A web-based project executed to deliver fast responses with an interactive and functional UI, enabling multiple students while providing an admin live monitoring system.
+</p>
+
+<a href="https://online-examination-system-lovat-theta.vercel.app/" 
+class="btn" target="_blank">
+View Project
+</a>
+
+</div>
+</div>
+
+</div>
+</section>
+
 
 <!-- CERTIFICATIONS -->
 <section id="certifications">
